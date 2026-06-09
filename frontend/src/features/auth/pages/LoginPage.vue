@@ -13,7 +13,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <form id="login-form" @submit.prevent="handleSubmit">
+  <form class="flex flex-col" @submit.prevent="handleSubmit">
     <span class="primary-title--secondary text-center mb-6"> Welcome back! </span>
     <div class="form__full-field">
       <label>Username</label>
