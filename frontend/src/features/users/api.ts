@@ -9,7 +9,7 @@ export const profileMedia = {
 };
 
 export async function updateProfile(data: FormData) {
-  const res = apiClient.post(endpoints.auth.me, data);
+  const res = apiClient.patch(endpoints.auth.me, data);
 
   const { fetchMe } = useAuth();
 
