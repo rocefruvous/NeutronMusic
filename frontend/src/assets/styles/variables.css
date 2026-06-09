@@ -1,0 +1,15 @@
+:root {
+  --foreground: #ffffff;
+  --foreground-secondary: #fceef5;
+  --foreground-muted: rgba(255, 255, 255, 0.35);
+  --surface: rgba(12, 9, 13, 0.1);
+  --surface-secondary: rgba(12, 9, 13, 0.05);
+  --background: #272734;
+  --background-secondary: #33333e;
+  --primary: #b8ff26;
+  --primary-secondary: #4551f2;
+
+  --avatar-lg: 12rem;
+  --avatar-md: 6rem;
+  --avatar-sm: 2.25rem;
+}

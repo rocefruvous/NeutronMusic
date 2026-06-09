@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+body {
+  font-family: Inter;
+  background-color: var(--background);
+  color: var(--foreground);
+  margin: 0;
+  margin-bottom: 120px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.text-secondary {
+  color: var(--foreground-secondary);
+}
+.text-muted {
+  color: var(--foreground-muted);
+}
+
+.form__input {
+  background-color: var(--surface);
+  border-radius: 0.3rem;
+  border: 1px solid #dddddd2d;
+  color: var(--foreground);
+  padding: 0.5rem;
+}
+
+.form__file::file-selector-button {
+  background-color: var(--surface);
+  border-radius: 0.3rem;
+  border: none;
+  color: var(--foreground);
+  border: 1px solid #dddddd2d;
+  padding: 0.5rem;
+}
+
+.form__submit {
+  border-radius: 0.3rem;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.button--main {
+  color: var(--background);
+  background-color: var(--primary);
+  transition: 250ms;
+}
+
+.button--main:hover {
+  background-color: var(--primary-secondary);
+  color: var(--background);
+}
+
+.button--secondary {
+  background-color: var(--surface);
+}
+
+.dropdown-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dropdown-menu li {
+  padding: 0.2em;
+}
+
+.section {
+  max-width: 1280px;
+}
+
+a:link {
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--foreground);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.backdrop-shadow {
+  filter: drop-shadow(rgba(16, 18, 26, 0.15) 3px 3px 30px);
+}
+
+.profile__banner {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.2), var(--background)), url(/src/assets/images/banner.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.avatar {
+  width: var(--avatar-lg);
+  height: var(--avatar-lg);
+  pointer-events: none;
+  border: 0.4rem solid var(--background);
+}
+
+.avatar--small {
+  width: var(--avatar-sm);
+  height: var(--avatar-sm);
+}
+
+.avatar--medium {
+  width: var(--avatar-md);
+  height: var(--avatar-md);
+}
+
+.avatar.circle {
+  border-radius: 100rem;
+}
+
+.avatar.square {
+  border-radius: 1rem;
+}
+
+.primary-title {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.bold-text {
+  font-weight: 700;
+}
