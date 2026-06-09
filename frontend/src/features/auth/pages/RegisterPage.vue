@@ -15,24 +15,30 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="login__main-frame">
-    <h1>Login!!</h1>
-    <form id="login-form" @submit.prevent="handleSubmit">
+  <form class="flex flex-col" @submit.prevent="handleSubmit">
+    <span class="primary-title--secondary text-center mb-6"> Create an account </span>
+    <div class="form__full-field">
       <label>Username</label>
-      <input class="form__input" type="text" v-model="form.username" placeholder="username" />
-      <p></p>
+      <input class="form__input" type="text" v-model="form.username" />
+    </div>
+    <div class="form__full-field">
       <label>Email</label>
-      <input class="form__input" type="email" v-model="form.email" placeholder="email" />
+      <input class="form__input" type="email" v-model="form.email" />
+    </div>
+    <div class="form__full-field">
       <label>Password</label>
-      <input class="form__input" type="password" v-model="form.password" placeholder="password" />
+      <input class="form__input" type="password" v-model="form.password" />
+    </div>
+    <div class="form__full-field">
       <label>Repeat the password</label>
-      <input class="form__input" type="password" v-model="form.password2" placeholder="password" />
-      <p></p>
-      <button class="form__submit" type="submit">Sign up</button>
-      <div>New user? <router-link to="/register">Sign up</router-link></div>
-    </form>
-  </div>
-  <P></P>
+      <input class="form__input" type="password" v-model="form.password2" />
+    </div>
+
+    <button class="form__submit" type="submit">Sign up</button>
+    <div class="form__sub-text">
+      Already have an account? <router-link to="/auth/login">Log in</router-link>
+    </div>
+  </form>
 </template>
 
 <style scoped></style>

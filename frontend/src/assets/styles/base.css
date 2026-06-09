@@ -22,7 +22,7 @@ input:focus {
 .form__input {
   background-color: var(--surface);
   border-radius: 0.3rem;
-  border: 1px solid #dddddd2d;
+  border: none;
   color: var(--foreground);
   padding: 0.5rem;
 }
@@ -32,30 +32,18 @@ input:focus {
   border-radius: 0.3rem;
   border: none;
   color: var(--foreground);
-  border: 1px solid #dddddd2d;
+  border: none;
   padding: 0.5rem;
 }
 
 .form__submit {
-  border-radius: 0.3rem;
+  border-radius: 999rem;
   border: none;
   padding: 0.5rem;
   cursor: pointer;
-}
-
-.button--main {
   color: var(--background);
-  background-color: var(--primary);
-  transition: 250ms;
-}
-
-.button--main:hover {
-  background-color: var(--primary-secondary);
-  color: var(--background);
-}
-
-.button--secondary {
-  background-color: var(--surface);
+  background-color: var(--foreground-secondary);
+  font-weight: 500;
 }
 
 .dropdown-menu {
@@ -72,7 +60,6 @@ input:focus {
 }
 
 a:link {
-  color: var(--foreground);
   text-decoration: none;
 }
 
@@ -82,6 +69,21 @@ a:visited {
 
 a:hover {
   text-decoration: underline;
+}
+
+.button--main {
+  color: var(--background);
+  background-color: var(--foreground-secondary);
+  transition: 250ms;
+}
+
+.button--main:hover {
+  background-color: var(--primary-secondary);
+  color: var(--background);
+}
+
+.button--secondary {
+  background-color: var(--surface);
 }
 
 .backdrop-shadow {
@@ -125,6 +127,28 @@ a:hover {
   font-weight: 700;
 }
 
+.primary-title--secondary {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
 .bold-text {
   font-weight: 700;
+}
+
+.form__full-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.form__full-field label {
+  margin-bottom: 0.5em;
+}
+
+.form__sub-text {
+  font-size: 0.8em;
+  font-weight: 400;
+  margin-top: 1em;
+  color: var(--foreground-muted);
 }
