@@ -14,3 +14,17 @@ class Song(models.Model):
         indexes = [
             models.Index(fields=["album", "track_number"]),
         ]
+
+class Like(models.Model):
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "song"], name="unique_user_song_like")
+        ]
+        indexes = [
+            models.Index(fields=["user", "created_at"]),
+            models.Index(fields=["song", "created_at"]),
+        ]

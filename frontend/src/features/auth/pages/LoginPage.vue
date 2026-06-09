@@ -23,7 +23,7 @@ const handleSubmit = async () => {
       <input class="form__input" type="password" v-model="form.password" placeholder="password" />
       <p></p>
       <button class="form__submit" type="submit">Log in</button>
-      <div>New user? <router-link to="/register">Sign up</router-link></div>
+      <div>New user? <router-link to="/auth/register">Sign up</router-link></div>
     </form>
   </div>
   <P></P>

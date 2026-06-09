@@ -43,3 +43,15 @@ def song_view(request):
             )
 
     return Response(serializer.errors, status=400)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def like_view(request, pk):
+    song = get_object_or_404(Song, id=pk)
+
+    if request.user in song.likes.all():
+        song.likes.remove(request.user)
+    else:
+        song.likes.add(request.user)
+
+    return redirect("song_detail", song_id=song.public_id)
