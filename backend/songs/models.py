@@ -6,7 +6,6 @@ class Song(models.Model):
     public_id = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False, null=False, unique=True)
     name = models.CharField(max_length=250)
     audio = models.FileField(upload_to="songs/", null=True, blank=True)
-    duration = models.PositiveIntegerField(default=0)
     explicit = models.BooleanField(default=False)
     album = models.ForeignKey('albums.Album', on_delete=models.CASCADE)
     track_number = models.PositiveIntegerField()
