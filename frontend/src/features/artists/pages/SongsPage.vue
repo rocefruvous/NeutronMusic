@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { getArtistSongs } from "@/features/songs/api";
+import { getArtistSongs, playSong } from "@/features/songs/api";
 import { albumMedia } from "@/features/albums/api";
 
 import SongItem from "../components/SongItem.vue";
@@ -24,14 +24,14 @@ watch(
 <template>
   <div class="list__grid">
     <div v-for="song in data" :key="song.public_id" class="album-card">
-      <RouterLink :to="{ name: 'album', params: { id: song.public_id } }">
+      <button @click="playSong(song.public_id)">
         <SongItem
           :name="song.name"
           :src="albumMedia.cover(song.album)"
           type="Song"
           shape="square"
         />
-      </RouterLink>
+      </button>
     </div>
   </div>
 </template>
@@ -40,28 +40,5 @@ watch(
 .list__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
-
-.album-card {
-  background: transparent;
-  width: 100%;
-  border-radius: 1rem;
-}
-
-.album-card__content {
-  padding: 1rem;
-}
-
-.album-card:hover {
-  background: var(--surface);
-}
-
-.album-card__cover-art {
-  width: 12rem;
-  border-radius: 1rem;
-}
-.album-card__name {
-  font-size: 1.2em;
-  font-weight: 700;
 }
 </style>
