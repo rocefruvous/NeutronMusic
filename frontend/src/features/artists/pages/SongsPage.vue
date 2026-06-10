@@ -24,7 +24,7 @@ watch(
 <template>
   <div class="list__grid">
     <div v-for="song in data" :key="song.public_id" class="album-card">
-      <button @click="playSong(song.public_id)">
+      <button class="w-full" @click="playSong(song.public_id)">
         <SongItem
           :name="song.name"
           :src="albumMedia.cover(song.album)"
