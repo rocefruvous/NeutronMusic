@@ -181,17 +181,38 @@ const fmt = (t: number) =>
   transition: 200ms;
 }
 
+#duration::-webkit-slider-runnable-track {
+  background-color: var(--surface);
+  height: 2px;
+  border-radius: 100vw;
+}
+
+#duration::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  height: 12px;
+  width: 12px;
+  margin-top: -5px; /* centers thumb */
+  transition: 200ms;
+}
+
+.duration__frame:hover #duration::-webkit-slider-thumb {
+  background-color: var(--foreground);
+}
+
 .duration__frame:hover #duration::-moz-range-thumb {
   background-color: var(--foreground);
 }
 
-.duration__frame:hover .current-time {
-  color: var(--foreground-muted);
+.current-time {
+  opacity: 0;
+  transition: 200ms;
 }
 
-.current-time {
-  pointer-events: none;
-  color: transparent;
-  transition: 200ms;
+.duration__frame:hover .current-time {
+  opacity: 1;
+  color: var(--foreground-muted);
 }
 </style>
