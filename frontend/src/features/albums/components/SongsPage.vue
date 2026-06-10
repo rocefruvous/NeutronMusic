@@ -20,9 +20,10 @@ watch(
 
 <template>
   <div class="album-list">
+    <h1 class="primary-title">Songs</h1>
     <div v-for="song in data" :key="song.public_id" class="song-card">
-      <button @click="playSong(song.public_id)">
-        <div class="album-card__content flex flex-row gap-1.5">
+      <button class="w-full" @click="playSong(song.public_id)">
+        <div class="song-card__content text-left p-2 gap-1.5">
           <p>{{ song.track_number }}</p>
           <h3 class="album-card__name">{{ song.name }}</h3>
           <p>{{ song.duration }}</p>
@@ -39,8 +40,15 @@ watch(
   border-radius: 1rem;
 }
 
-.album-card__content {
-  padding: 1rem;
+.song-card__content {
+  display: grid;
+  grid-template-columns: 1em 1fr 1fr;
+  border-radius: 1rem;
+  transition: 200ms;
+}
+
+.song-card__content:hover {
+  background-color: var(--surface);
 }
 
 .album-card:hover {

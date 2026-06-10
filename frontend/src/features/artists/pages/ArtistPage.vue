@@ -3,6 +3,10 @@ import { computed, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { artistMedia, getArtist } from "../api";
 
+import { Pencil, Plus } from "@lucide/vue";
+
+import { albumCreateAlbum } from "../state";
+
 import IdentityCard from "@/shared/components/IdentityCard.vue";
 
 import CreateAlbum from "../components/CreateAlbum.vue";
@@ -39,9 +43,15 @@ watchEffect(() => {
       <div class="pr-12 pl-12 w-96">
         <IdentityCard :name="data?.name" :src="urls.profile" />
         <div class="flex flex-row gap-1.5 mt-3 mb-6">
-          <button class="button--main text-button artist__follow-button">Follow</button>
-          <button class="button--main text-button artist__follow-button">Edit</button>
-          <button class="button--main icon-button artist__follow-button">+</button>
+          <button
+            @click="albumCreateAlbum.open = true"
+            class="button--main text-button artist__follow-button gap-1.5"
+          >
+            <Plus :size="18" />Create
+          </button>
+          <button class="button--main text-button artist__follow-button">
+            <Pencil :size="18" />
+          </button>
         </div>
         <p class="text-secondary">{{ data?.bio }}</p>
       </div>
@@ -81,7 +91,7 @@ watchEffect(() => {
 <style scoped>
 .artist__follow-button {
   height: 2.25rem;
-  border-radius: 100rem;
+  border-radius: 999rem;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -3,13 +3,20 @@ import { computed, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { albumMedia, getAlbum } from "../api";
 
+import { Pencil, Plus } from "@lucide/vue";
+
 import IdentityCard from "@/shared/components/IdentityCard.vue";
 
 import CreateSong from "../components/CreateSong.vue";
 import SongsPage from "../components/SongsPage.vue";
 
+import { getArtist } from "@/features/artists/api";
+
+import { songCreateModal } from "../state";
+
 const route = useRoute();
 const data = ref<any>(null);
+const artistData = ref<any>(null);
 
 const albumId = computed(() => route.params.id as string);
 
@@ -17,9 +24,15 @@ const urls = computed(() => ({
   cover: albumMedia.cover(albumId.value),
 }));
 
+async function fetchArtist(id: string) {
+  const { data: res } = await getArtist(id);
+  artistData.value = res;
+}
+
 async function fetchAlbum(id: string) {
   const { data: res } = await getAlbum(id);
   data.value = res;
+  fetchArtist(res.artist);
 }
 
 const refreshAlbum = () => {
@@ -43,11 +56,18 @@ watchEffect(() => {
       <div class="pr-12 pl-12 w-96">
         <IdentityCard :name="data?.name" :src="urls.cover" shape="square" />
         <div class="flex flex-row gap-1.5 mt-3 mb-6">
-          <button class="button--main text-button artist__follow-button">Follow</button>
-          <button class="button--main text-button artist__follow-button">Edit</button>
-          <button class="button--main icon-button artist__follow-button">+</button>
+          <button
+            @click="songCreateModal.open = true"
+            class="button--main text-button artist__follow-button gap-1.5"
+          >
+            <Plus :size="18" />Create
+          </button>
+          <button class="button--main text-button artist__follow-button">
+            <Pencil :size="18" />
+          </button>
         </div>
-        <p class="text-secondary">{{ data?.bio }}</p>
+        <p class="primary-title--secondary text-secondary">{{ artistData?.name }}</p>
+        <p class="text-secondary">{{ artistData?.bio }}</p>
       </div>
       <div>
         <div>

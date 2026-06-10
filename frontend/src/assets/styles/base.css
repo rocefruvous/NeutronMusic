@@ -22,6 +22,16 @@ body {
   margin-bottom: 120px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
 input:focus {
   outline: none;
 }
@@ -96,8 +106,14 @@ a:hover {
   color: var(--background);
 }
 
+.button--main:active {
+  filter: drop-shadow(var(--primary-secondary) 0 0 0.5rem);
+  transition: 100ms;
+}
+
 .button--secondary {
   background-color: var(--surface);
+  color: var(--foreground-secondary);
 }
 
 .backdrop-shadow {
@@ -165,4 +181,13 @@ a:hover {
   font-weight: 400;
   margin-top: 1em;
   color: var(--foreground-muted);
+}
+
+.create-menu__outer {
+  background-color: #00000093;
+}
+
+.create-menu {
+  background-color: var(--background);
+  border-radius: 1em;
 }

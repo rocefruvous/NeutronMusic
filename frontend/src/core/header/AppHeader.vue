@@ -87,6 +87,7 @@ header nav {
   align-items: center;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--background);
 }
 
 .header__links li {

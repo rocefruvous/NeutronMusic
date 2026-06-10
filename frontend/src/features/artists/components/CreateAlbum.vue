@@ -5,11 +5,11 @@ import { useFileField } from "@/shared/composables/UseFileField";
 
 import { createAlbum } from "@/features/albums/api";
 
+import { albumCreateAlbum } from "../state";
+
 const props = defineProps({
   public_id: String,
 });
-
-const show_menu = ref(false);
 
 const form = reactive({
   name: "",
@@ -29,28 +29,31 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <button @click="show_menu = !show_menu">Create Album test</button>
-
   <div
-    @click="show_menu = !show_menu"
-    v-if="show_menu"
+    @click="albumCreateAlbum.open = false"
+    v-if="albumCreateAlbum.open"
     class="create-menu__outer fixed inset-0 flex items-center justify-center"
   >
     <div @click.stop class="create-menu flex flex-col p-5">
-      <div class="flex flex-row justify-between">
+      <span class="primary-title--secondary text-center mb-6">
         <h2>Create new album</h2>
-        <button>X</button>
-      </div>
+      </span>
       <form class="artist__form flex flex-col gap-1.5" @submit.prevent="handleSubmit">
-        <label>Name</label>
-        <input class="form__input" type="text" v-model="form.name" placeholder="Name the album" />
-        <label>Cover Art</label>
-        <input class="form__file" type="file" @change="coverFile.onChange" />
-        <label>Release Date</label>
-        <input class="form__input" type="date" v-model="form.release_date" placeholder="bio" />
+        <div class="form__full-field">
+          <label>Name</label>
+          <input class="form__input" type="text" v-model="form.name" placeholder="Name the album" />
+        </div>
+        <div class="form__full-field">
+          <label>Cover Art</label>
+          <input class="form__file" type="file" @change="coverFile.onChange" />
+        </div>
+        <div class="form__full-field">
+          <label>Release Date</label>
+          <input class="form__input" type="date" v-model="form.release_date" placeholder="bio" />
+        </div>
         <div class="flex flex-row justify-between gap-1.5 mt-1.5">
           <button
-            @click="show_menu = !show_menu"
+            @click="albumCreateAlbum.open = false"
             class="form__submit button--secondary w-1/2"
             type="button"
           >
@@ -63,13 +66,4 @@ const handleSubmit = async () => {
   </div>
 </template>
 
-<style scoped>
-.create-menu__outer {
-  background-color: #00000093;
-}
-
-.create-menu {
-  background-color: var(--background);
-  border-radius: 1em;
-}
-</style>
+<style scoped></style>
