@@ -66,8 +66,15 @@ watchEffect(() => {
             <Pencil :size="18" />
           </button>
         </div>
-        <p class="primary-title--secondary text-secondary">{{ artistData?.name }}</p>
-        <p class="text-secondary">{{ artistData?.bio }}</p>
+        <RouterLink
+          v-if="artistData"
+          :to="{ name: 'artist', params: { public_id: artistData.public_id } }"
+        >
+          <div class="album-card__content">
+            <p class="primary-title--secondary text-secondary">{{ artistData?.name }}</p>
+            <p class="text-secondary">{{ artistData?.bio }}</p>
+          </div>
+        </RouterLink>
       </div>
       <div>
         <div>

@@ -19,7 +19,7 @@ watch(
 </script>
 
 <template>
-  <div class="album-list">
+  <div class="grid grid-cols-3">
     <div v-for="album in data" :key="album.public_id" class="album-card">
       <RouterLink :to="{ name: 'album', params: { id: album.public_id } }">
         <div class="album-card__content">

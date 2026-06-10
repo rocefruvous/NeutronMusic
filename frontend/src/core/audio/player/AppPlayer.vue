@@ -86,9 +86,20 @@ const fmt = (t: number) =>
         <div class="content-center">
           <p class="bold-text whitespace-nowrap">{{ songData?.name }}</p>
           <span class="flex flex-row gap-0.5">
-            <p class="whitespace-nowrap">{{ artistData?.name }}</p>
+            <RouterLink
+              v-if="artistData"
+              :to="{ name: 'artist', params: { public_id: artistData.public_id } }"
+            >
+              <p class="whitespace-nowrap">{{ artistData?.name }}</p>
+            </RouterLink>
+
             -
-            <p class="bold-text whitespace-nowrap">{{ albumData?.name }}</p>
+            <RouterLink
+              v-if="albumData"
+              :to="{ name: 'album', params: { id: albumData.public_id } }"
+            >
+              <p class="bold-text whitespace-nowrap">{{ albumData?.name }}</p>
+            </RouterLink>
           </span>
         </div>
       </div>
