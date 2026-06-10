@@ -3,13 +3,14 @@ import { computed, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { artistMedia, getArtist } from "../api";
 
-import { Pencil, Plus } from "@lucide/vue";
+import { Edit, Pencil, Plus } from "@lucide/vue";
 
-import { albumCreateAlbum } from "../state";
+import { albumCreateAlbum, editArtistModal } from "../state";
 
 import IdentityCard from "@/shared/components/IdentityCard.vue";
 
 import CreateAlbum from "../components/CreateAlbum.vue";
+import EditArtist from "../components/EditArtist.vue";
 
 const route = useRoute();
 const data = ref<any>(null);
@@ -49,7 +50,10 @@ watchEffect(() => {
           >
             <Plus :size="18" />Create
           </button>
-          <button class="button--main text-button artist__follow-button">
+          <button
+            @click="editArtistModal.open = true"
+            class="button--main text-button artist__follow-button"
+          >
             <Pencil :size="18" />
           </button>
         </div>
@@ -85,6 +89,7 @@ watchEffect(() => {
       </div>
     </div>
   </div>
+  <EditArtist :public_id="public_id" />
   <CreateAlbum :public_id="public_id" />
 </template>
 

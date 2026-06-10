@@ -16,3 +16,8 @@ export async function createArtist(data: FormData) {
   const res = apiClient.post(endpoints.artists.detail, data);
   return res;
 }
+
+export async function updateArtist(id: string, data: FormData) {
+  const res = apiClient.patch(`${endpoints.artists.detail}${id}/`, data);
+  return res;
+}

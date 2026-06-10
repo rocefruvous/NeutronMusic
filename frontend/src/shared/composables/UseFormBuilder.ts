@@ -3,15 +3,15 @@ export function useFormBuilder() {
     const data = new FormData();
 
     Object.entries(form).forEach(([key, value]) => {
-      if (value === null || value === undefined) return;
+      if (value === null || value === undefined || value === "") {
+        return;
+      }
 
-      // handle files
       if (value instanceof File) {
         data.append(key, value);
         return;
       }
 
-      // handle arrays
       if (Array.isArray(value)) {
         value.forEach((v, i) => {
           data.append(`${key}[${i}]`, v);

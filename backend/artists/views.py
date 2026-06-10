@@ -27,13 +27,28 @@ def artist_list(request):
         return Response(serializer.errors, status=400)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'PATCH'])
 def artist_detail(request, pk):
     artist = get_object_or_404(Artist, public_id=pk)
 
-    serializer = ArtistPublicSerializer(artist)
+    if request.method == 'GET':
+        serializer = ArtistPublicSerializer(artist)
 
-    return Response(serializer.data)
+        return Response(serializer.data)
+
+    if request.method == 'PATCH':
+
+        serializer = ArtistPublicSerializer(
+            artist,
+            data=request.data,
+            partial=True
+    )   
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def profile_image(request, pk):
