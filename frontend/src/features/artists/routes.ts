@@ -3,6 +3,7 @@ export const artistRoutes = [
     path: "/artist/:public_id",
     name: "artist",
     component: () => import("./pages/ArtistPage.vue"),
+    redirect: { name: "artist-songs" },
     children: [
       {
         path: "",
