@@ -7,7 +7,7 @@ import { API_BASE } from "@/api/client";
 import { endpoints } from "@/api/endpoints";
 import { audioState } from "./state";
 
-import { getSong } from "@/features/songs/api";
+import { getSong, likeSong } from "@/features/songs/api";
 import { getAlbum, albumMedia } from "@/features/albums/api";
 import { getArtist } from "@/features/artists/api";
 
@@ -105,7 +105,7 @@ const fmt = (t: number) =>
       </div>
       <div class="flex flex-col w-full justify-center">
         <div class="absolute left-1/2 right-1/2 flex flex-row justify-center gap-5">
-          <button>
+          <button @click="likeSong(songData.public_id)">
             <div class="player__button player__like-button">
               <Heart />
             </div>

@@ -19,5 +19,8 @@ export const endpoints = {
   songs: {
     list: "/songs/",
   },
+  browse: {
+    list: "/catalog/",
+  },
   stream: "/stream/",
 };

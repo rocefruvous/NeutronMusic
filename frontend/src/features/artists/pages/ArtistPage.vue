@@ -3,7 +3,7 @@ import { computed, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { artistMedia, getArtist } from "../api";
 
-import { Edit, Pencil, Plus } from "@lucide/vue";
+import { Pencil, Plus } from "@lucide/vue";
 
 import { albumCreateAlbum, editArtistModal } from "../state";
 
@@ -82,7 +82,14 @@ watchEffect(() => {
                 Albums
               </RouterLink>
             </li>
-            <li class="tabs__tab">Liked</li>
+            <RouterLink
+              class="tabs__tab"
+              active-class="tabs__tab--active"
+              exact-active-class="tabs__tab--active"
+              :to="{ name: 'artist-liked', params: { id: public_id } }"
+            >
+              Liked
+            </RouterLink>
           </ul>
         </div>
         <router-view />

@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 
-from .models import Song
+from .models import Song, Like
 from .serializers import SongSerializer
 
 @api_view(['GET'])
@@ -60,11 +60,18 @@ def song_view(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def like_view(request, pk):
-    song = get_object_or_404(Song, id=pk)
+    song = get_object_or_404(Song, public_id=pk)
 
-    if request.user in song.likes.all():
-        song.likes.remove(request.user)
+    like = Like.objects.filter(user=request.user, song=song).first()
+
+    if like:
+        like.delete()
+        liked = False
     else:
-        song.likes.add(request.user)
+        Like.objects.create(user=request.user, song=song)
+        liked = True
 
-    return redirect("song_detail", song_id=song.public_id)
+    return Response({
+        "liked": liked,
+        "likes_count": Like.objects.filter(song=song).count()
+    }, status=200)

@@ -16,9 +16,9 @@ export const artistRoutes = [
         component: () => import("./pages/AlbumsPage.vue"),
       },
       {
-        path: "about",
-        name: "artist-about",
-        component: "",
+        path: "liked",
+        name: "artist-liked",
+        component: () => import("./pages/LikedPage.vue"),
       },
     ],
   },
