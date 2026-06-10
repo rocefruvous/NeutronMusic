@@ -23,11 +23,24 @@ def song_detail(request, pk):
 def song_view(request):
     if request.method == 'GET':
         album_id = request.GET.get("album")
+        liked = request.GET.get("liked")
+        artist_id = request.GET.get("artist")
+
         songs = Song.objects.all()
 
-
+        if artist_id:
+            songs = songs.filter(
+                album__artist__public_id=artist_id
+            )
         if album_id:
-            songs = songs.filter(album__public_id=album_id).order_by("track_number")
+            songs = songs.filter(
+                album__public_id=album_id
+                ).order_by("track_number")
+
+        if liked == "true":
+            songs = songs.filter(
+                like__user=request.user
+            )
 
         serializer = SongSerializer(songs, many=True)
         return Response(serializer.data)

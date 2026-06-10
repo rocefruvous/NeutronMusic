@@ -55,7 +55,7 @@ watchEffect(() => {
         </div>
         <p class="text-secondary">{{ data?.bio }}</p>
       </div>
-      <div>
+      <div class="w-1/2">
         <div>
           <ul class="tabs flex flex-row">
             <li>

@@ -10,6 +10,22 @@ export async function getSongs(id: string) {
   });
   return data;
 }
+export async function getArtistSongs(id: string) {
+  const data = await api.get(endpoints.songs.list, {
+    params: { artist: id },
+  });
+  return data;
+}
+
+export async function getLikedSongs(id: string) {
+  const data = await api.get(endpoints.songs.list, {
+    params: {
+      artist: id,
+      liked: true,
+    },
+  });
+  return data;
+}
 
 export async function getSong(id: string) {
   const res = await api.get(endpoints.songs.list + id);

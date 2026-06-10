@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Play, Pause } from "@lucide/vue";
+import { Play, Pause, Heart } from "@lucide/vue";
 
 import { ref, watch, computed } from "vue";
 
@@ -74,7 +74,7 @@ const fmt = (t: number) =>
       </div>
     </div>
     <div class="flex flex-row p-3">
-      <div class="flex flex-row">
+      <div class="flex flex-row gap-2">
         <img
           v-if="songData?.album"
           :src="albumMedia.cover(songData.album)"
@@ -90,10 +90,17 @@ const fmt = (t: number) =>
         </div>
       </div>
       <div class="flex flex-col w-full justify-center">
-        <div class="absolute left-1/2 right-1/2 flex flex-row justify-center">
-          <button class="player__play-button" @click="togglePlay">
-            <Pause :size="28" v-if="isPlaying" />
-            <Play :size="28" v-else />
+        <div class="absolute left-1/2 right-1/2 flex flex-row justify-center gap-5">
+          <button>
+            <div class="player__button player__like-button">
+              <Heart />
+            </div>
+          </button>
+          <button @click="togglePlay">
+            <div class="player__button player__play-button">
+              <Pause :size="36" v-if="isPlaying" />
+              <Play :size="36" v-else />
+            </div>
           </button>
         </div>
       </div>
@@ -106,11 +113,24 @@ const fmt = (t: number) =>
   background: var(--background);
 }
 
-.player__play-button {
+.player__button {
   padding: 0.5rem;
+  border-radius: 999rem;
+  transition: 200ms;
+  cursor: pointer;
+}
+
+.player__play-button {
   background-color: rgb(239, 234, 251);
   color: rgb(39, 39, 52);
-  border-radius: 999rem;
+}
+
+.player__play-button:hover {
+  background-color: var(--foreground);
+}
+
+.player__like-button {
+  background-color: var(--surface);
 }
 
 #duration {
@@ -127,10 +147,15 @@ const fmt = (t: number) =>
   border-radius: 100vw;
 }
 #duration::-moz-range-thumb {
-  background-color: var(--foreground);
+  background-color: transparent;
   border: none;
   height: 12px;
   width: 12px;
+  transition: 200ms;
+}
+
+.duration__frame:hover #duration::-moz-range-thumb {
+  background-color: var(--foreground);
 }
 
 .duration__frame:hover .current-time {

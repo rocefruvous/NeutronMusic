@@ -7,7 +7,7 @@ export const artistRoutes = [
       {
         path: "",
         name: "artist-songs",
-        component: "",
+        component: () => import("./pages/SongsPage.vue"),
       },
       {
         path: "albums",

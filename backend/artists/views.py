@@ -8,13 +8,13 @@ from rest_framework import status
 
 
 from .models import Artist
-from .serializers import ArtistSerializer
+from .serializers import ArtistSerializer, ArtistPublicSerializer
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def artist_list(request):
     if request.method == 'GET':
-            serializer = ArtistSerializer(Artist.objects.all()[:100], many=True)
+            serializer = ArtistPublicSerializer(Artist.objects.all()[:100], many=True)
             return Response(serializer.data)
             
     if request.method == 'POST':
@@ -31,7 +31,7 @@ def artist_list(request):
 def artist_detail(request, pk):
     artist = get_object_or_404(Artist, public_id=pk)
 
-    serializer = ArtistSerializer(artist)
+    serializer = ArtistPublicSerializer(artist)
 
     return Response(serializer.data)
 

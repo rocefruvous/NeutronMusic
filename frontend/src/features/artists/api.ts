@@ -13,5 +13,6 @@ export async function getArtist(id: string) {
 }
 
 export async function createArtist(data: FormData) {
-  apiClient.post(endpoints.artists.detail, data);
+  const res = apiClient.post(endpoints.artists.detail, data);
+  return res;
 }
