@@ -132,6 +132,8 @@ a:hover {
   height: var(--avatar-lg);
   pointer-events: none;
   border: 0.4rem solid var(--background);
+  background-image: url(/src/assets/images/default_avatar.jpg);
+  background-size: cover;
 }
 
 .avatar--small {
