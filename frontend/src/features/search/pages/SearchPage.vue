@@ -82,11 +82,6 @@ watch(
 </template>
 
 <style scoped>
-.list__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
 .list__item {
   width: 100%;
 }

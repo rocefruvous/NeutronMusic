@@ -25,7 +25,7 @@ watch(
       <button class="w-full" @click="playSong(song.public_id)">
         <div class="song-card__content text-left p-2 gap-1.5">
           <p>{{ song.track_number }}</p>
-          <h3 class="album-card__name">{{ song.name }}</h3>
+          <h3 class="song-card__name">{{ song.name }}</h3>
           <p>{{ song.duration }}</p>
         </div>
       </button>
@@ -43,8 +43,10 @@ watch(
 .song-card__content {
   display: grid;
   grid-template-columns: 1em 1fr 1fr;
+  font-size: 1.2em;
   border-radius: 1rem;
   transition: 200ms;
+  color: var(--foreground-muted);
 }
 
 .song-card__content:hover {
@@ -59,8 +61,8 @@ watch(
   width: 12rem;
   border-radius: 1rem;
 }
-.album-card__name {
-  font-size: 1.2em;
-  font-weight: 700;
+.song-card__name {
+  font-weight: 750;
+  color: var(--foreground);
 }
 </style>

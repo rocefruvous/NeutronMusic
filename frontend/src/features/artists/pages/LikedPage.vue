@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { getArtistSongs } from "@/features/songs/api";
+import { getLikedSongs } from "@/features/songs/api";
 import { albumMedia } from "@/features/albums/api";
 
 import SongItem from "../components/SongItem.vue";
@@ -37,11 +37,6 @@ watch(
 </template>
 
 <style scoped>
-.list__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
 .album-card {
   background: transparent;
   width: 100%;

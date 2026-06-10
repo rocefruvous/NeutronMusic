@@ -75,11 +75,14 @@ const fmt = (t: number) =>
     </div>
     <div class="flex flex-row p-3">
       <div class="flex flex-row gap-2">
-        <img
-          v-if="songData?.album"
-          :src="albumMedia.cover(songData.album)"
-          class="avatar avatar--medium square"
-        />
+        <div class="player__cover-frame">
+          <img
+            v-if="songData?.album"
+            :src="albumMedia.cover(songData.album)"
+            class="player__cover-image"
+          />
+        </div>
+
         <div class="content-center">
           <p class="bold-text whitespace-nowrap">{{ songData?.name }}</p>
           <span class="flex flex-row gap-0.5">
@@ -111,6 +114,19 @@ const fmt = (t: number) =>
 <style scoped>
 #player {
   background: var(--background);
+}
+
+.player__cover-frame {
+  width: 4.5rem;
+  height: 4.5rem;
+  background-image: url(/src/assets/images/default_avatar.jpg);
+  background-size: cover;
+  pointer-events: none;
+  border-radius: 0.4rem;
+}
+
+.player__cover-image {
+  border-radius: 0.4rem;
 }
 
 .player__button {
