@@ -7,6 +7,8 @@ import { artistMedia } from "@/features/artists/api";
 import { albumMedia } from "@/features/albums/api";
 import { playSong } from "@/features/songs/api";
 
+import MediaCard from "@/shared/components/MediaCard.vue";
+
 type SearchResponse = {
   topSongs: any[];
   featuredArtists: any[];
@@ -43,55 +45,48 @@ onMounted(() => {
       <h2 class="primary-title">Top Songs</h2>
       <div class="grid grid-cols-5">
         <div v-for="song in data.topSongs" :key="song.public_id">
-          <button @click="playSong(song.public_id)" class="list__item">
-            <div class="album-card__content">
-              <img class="album-card__cover-art" :src="albumMedia.cover(song.album)" />
-              <h3 class="album-card__name">{{ song.name }}</h3>
-              <p class="text-muted">Song</p>
-            </div>
-          </button>
+          <MediaCard
+            @click="playSong(song.public_id)"
+            :name="song.name"
+            secondary="Song"
+            :src="albumMedia.cover(song.album)"
+          />
         </div>
       </div>
 
       <h2 class="primary-title">Featured Artists</h2>
       <div class="grid grid-cols-5">
         <div v-for="artist in data.featuredArtists" :key="artist.public_id">
-          <RouterLink
-            class="list__item"
+          <MediaCard
             :to="{ name: 'artist', params: { public_id: artist.public_id } }"
-          >
-            <div class="album-card__content">
-              <img class="album-card__cover-art" :src="artistMedia.profile(artist.public_id)" />
-              <h3 class="album-card__name">{{ artist.name }}</h3>
-              <p class="text-muted">Artist</p>
-            </div>
-          </RouterLink>
+            :name="artist.name"
+            secondary="Artist"
+            :src="artistMedia.profile(artist.public_id)"
+          />
         </div>
       </div>
 
       <h2 class="primary-title">Albums</h2>
       <div class="grid grid-cols-5">
         <div v-for="album in data.albums" :key="album.public_id">
-          <RouterLink class="list__item" :to="{ name: 'album', params: { id: album.public_id } }">
-            <div class="album-card__content">
-              <img class="album-card__cover-art" :src="albumMedia.cover(album.public_id)" />
-              <h3 class="album-card__name">{{ album.name }}</h3>
-              <p class="text-muted">Album</p>
-            </div>
-          </RouterLink>
+          <MediaCard
+            :to="{ name: 'album', params: { id: album.public_id } }"
+            :name="album.name"
+            secondary="Album"
+            :src="albumMedia.cover(album.public_id)"
+          />
         </div>
       </div>
 
       <h2 class="primary-title">Recent Albums</h2>
       <div class="grid grid-cols-5">
         <div v-for="album in data.recentAlbums" :key="album.public_id">
-          <RouterLink class="list__item" :to="{ name: 'album', params: { id: album.public_id } }">
-            <div class="album-card__content">
-              <img class="album-card__cover-art" :src="albumMedia.cover(album.public_id)" />
-              <h3 class="album-card__name">{{ album.name }}</h3>
-              <p class="text-muted">Album</p>
-            </div>
-          </RouterLink>
+          <MediaCard
+            :to="{ name: 'album', params: { id: album.public_id } }"
+            :name="album.name"
+            secondary="Album"
+            :src="albumMedia.cover(album.public_id)"
+          />
         </div>
       </div>
     </div>
@@ -99,25 +94,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.album-card__content {
-  padding: 1rem;
-}
-
-.album-card:hover {
-  background: var(--surface);
-}
-
-.album-card__cover-art {
-  width: 12rem;
-  border-radius: 1rem;
-  background-image: url(/src/assets/images/default_avatar.jpg);
-  background-size: cover;
-}
-.album-card__name {
-  font-size: 1.2em;
-  font-weight: 700;
-}
-
 .home-page__title {
   font-size: 3.5em;
   font-weight: 800;
