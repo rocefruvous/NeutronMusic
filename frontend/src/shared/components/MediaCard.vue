@@ -27,6 +27,7 @@ const props = defineProps({
   background: transparent;
   width: 13rem;
   border-radius: 1rem;
+  text-decoration: none;
 }
 
 .media-card__content {
