@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Album
 from artists.models import Artist
+from artists.serializers import ArtistPublicSerializer
 from django.db import transaction
 
 from utils.images import crop_image
-
 
 class AlbumSerializer(serializers.ModelSerializer):
     name = serializers.CharField(min_length=1)
@@ -12,17 +12,24 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     artist = serializers.SlugRelatedField(
         slug_field="public_id",
-        queryset=Artist.objects.all()
+        queryset=Artist.objects.all(),
+        write_only=True
+    )
+
+    artist_details = ArtistPublicSerializer(
+        source="artist",
+        read_only=True
     )
 
     class Meta:
         model = Album
         fields = [
             "name",
-            "artist",
             "cover_art",
             "release_date",
             "public_id",
+            "artist",
+            "artist_details",
         ]
         read_only_fields = ["public_id"]
 

@@ -10,13 +10,10 @@ import IdentityCard from "@/shared/components/IdentityCard.vue";
 import CreateSong from "../components/CreateSong.vue";
 import SongsPage from "../components/SongsPage.vue";
 
-import { getArtist } from "@/features/artists/api";
-
 import { songCreateModal } from "../state";
 
 const route = useRoute();
 const data = ref<any>(null);
-const artistData = ref<any>(null);
 
 const albumId = computed(() => route.params.id as string);
 
@@ -24,15 +21,9 @@ const urls = computed(() => ({
   cover: albumMedia.cover(albumId.value),
 }));
 
-async function fetchArtist(id: string) {
-  const { data: res } = await getArtist(id);
-  artistData.value = res;
-}
-
 async function fetchAlbum(id: string) {
   const { data: res } = await getAlbum(id);
   data.value = res;
-  fetchArtist(res.artist);
 }
 
 const refreshAlbum = () => {
@@ -67,12 +58,12 @@ watchEffect(() => {
           </button>
         </div>
         <RouterLink
-          v-if="artistData"
-          :to="{ name: 'artist', params: { public_id: artistData.public_id } }"
+          v-if="data.artist_details"
+          :to="{ name: 'artist', params: { public_id: data?.artist_details.public_id } }"
         >
           <div class="album-card__content">
-            <p class="primary-title--secondary text-secondary">{{ artistData?.name }}</p>
-            <p class="text-secondary">{{ artistData?.bio }}</p>
+            <p class="primary-title--secondary text-secondary">{{ data?.artist_details.name }}</p>
+            <p class="text-secondary">{{ data?.artist_details.bio }}</p>
           </div>
         </RouterLink>
       </div>

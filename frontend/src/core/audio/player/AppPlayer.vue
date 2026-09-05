@@ -8,8 +8,7 @@ import { endpoints } from "@/api/endpoints";
 import { audioState } from "./state";
 
 import { getSong, likeSong } from "@/features/songs/api";
-import { getAlbum, albumMedia } from "@/features/albums/api";
-import { getArtist } from "@/features/artists/api";
+import { albumMedia } from "@/features/albums/api";
 
 import { useAudioPlayer } from "./composables/useAudioPlayer";
 
@@ -30,24 +29,14 @@ const onSeek = (e: Event) => {
 };
 
 const songData = ref<Song | null>(null);
-const albumData = ref<Album | null>(null);
-const artistData = ref<Artist | null>(null);
 
 watch(
   () => audioState.songId,
   async (id) => {
-    songData.value = albumData.value = artistData.value = null;
+    songData.value = null;
     if (!id) return;
 
-    const song = await getSong(id);
-    songData.value = song;
-
-    if (!song.album) return;
-    const album = (await getAlbum(song.album)).data;
-    albumData.value = album;
-
-    if (!album.artist) return;
-    artistData.value = (await getArtist(album.artist)).data;
+    songData.value = await getSong(id);
   },
   { immediate: true },
 );
@@ -87,8 +76,8 @@ const fmt = (t: number) =>
       <div class="flex flex-row gap-2">
         <div class="player__cover-frame">
           <img
-            v-if="songData?.album"
-            :src="albumMedia.cover(songData.album)"
+            v-if="songData?.album_details.public_id"
+            :src="albumMedia.cover(songData.album_details.public_id)"
             class="player__cover-image"
           />
         </div>
@@ -97,18 +86,33 @@ const fmt = (t: number) =>
           <p class="bold-text whitespace-nowrap">{{ songData?.name }}</p>
           <span class="flex flex-row gap-0.5">
             <RouterLink
-              v-if="artistData"
-              :to="{ name: 'artist', params: { public_id: artistData.public_id } }"
+              v-if="songData?.album_details?.artist_details"
+              :to="{
+                name: 'artist',
+                params: {
+                  public_id: songData.album_details.artist_details.public_id,
+                },
+              }"
             >
-              <p class="whitespace-nowrap">{{ artistData?.name }}</p>
+              <p class="whitespace-nowrap">
+                {{ songData.album_details.artist_details.name }}
+              </p>
             </RouterLink>
 
             -
+
             <RouterLink
-              v-if="albumData"
-              :to="{ name: 'album', params: { id: albumData.public_id } }"
+              v-if="songData?.album_details"
+              :to="{
+                name: 'album',
+                params: {
+                  id: songData.album_details.public_id,
+                },
+              }"
             >
-              <p class="bold-text whitespace-nowrap">{{ albumData?.name }}</p>
+              <p class="bold-text whitespace-nowrap">
+                {{ songData.album_details.name }}
+              </p>
             </RouterLink>
           </span>
         </div>

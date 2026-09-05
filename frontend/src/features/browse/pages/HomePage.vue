@@ -49,7 +49,7 @@ onMounted(() => {
             @click="playSong(song.public_id)"
             :name="song.name"
             secondary="Song"
-            :src="albumMedia.cover(song.album)"
+            :src="albumMedia.cover(song.album_details.public_id)"
           />
         </div>
       </div>

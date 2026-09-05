@@ -4,6 +4,7 @@ from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Song
 from albums.models import Album
+from albums.serializers import AlbumSerializer
 
 
 class SongSerializer(serializers.ModelSerializer):
@@ -14,7 +15,13 @@ class SongSerializer(serializers.ModelSerializer):
 
     album = serializers.SlugRelatedField(
         slug_field="public_id",
-        queryset=Album.objects.all()
+        queryset=Album.objects.all(),
+        write_only=True
+    )
+
+    album_details = AlbumSerializer(
+        source="album",
+        read_only=True
     )
 
     class Meta:
@@ -23,6 +30,7 @@ class SongSerializer(serializers.ModelSerializer):
             "public_id",
             "name",
             "album",
+            "album_details",
             "track_number",
             "explicit",
             "audio",

@@ -27,7 +27,7 @@ watch(
       <button class="w-full" @click="playSong(song.public_id)">
         <SongItem
           :name="song.name"
-          :src="albumMedia.cover(song.album)"
+          :src="albumMedia.cover(song.album_details.public_id)"
           type="Song"
           shape="square"
         />
