@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.http import JsonResponse, FileResponse
 
 from rest_framework.response import Response
@@ -43,4 +46,8 @@ def album_detail(request, pk):
 def cover_image(request, pk):
     album = get_object_or_404(Album, public_id=pk)
 
-    return FileResponse(album.cover_art.open("rb"))
+    if album.cover_art and os.path.exists(album.cover_art.path):
+        return FileResponse(album.cover_art.open("rb"))
+
+    fallback_path = os.path.join(settings.BASE_DIR, "static", "images", "default-album.webp")
+    return FileResponse(open(fallback_path, "rb"))

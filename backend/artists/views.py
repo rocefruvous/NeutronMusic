@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.http import JsonResponse, FileResponse
 
 from rest_framework.response import Response
@@ -5,7 +8,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-
 
 from .models import Artist
 from .serializers import ArtistSerializer, ArtistPublicSerializer
@@ -54,7 +56,11 @@ def artist_detail(request, pk):
 def profile_image(request, pk):
     artist = get_object_or_404(Artist, public_id=pk)
 
-    return FileResponse(artist.profile_image.open("rb"))
+    if artist.profile_image and os.path.exists(artist.profile_image.path):
+        return FileResponse(artist.profile_image.open("rb"))
+
+    fallback_path = os.path.join(settings.BASE_DIR, "static", "images", "default-profile.webp")
+    return FileResponse(open(fallback_path, "rb"))
 
 @api_view(['GET'])
 def cover_image(request, pk):

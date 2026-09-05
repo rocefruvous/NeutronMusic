@@ -4,7 +4,7 @@ import { useRoute } from "vue-router";
 import { getArtistSongs, playSong } from "@/features/songs/api";
 import { albumMedia } from "@/features/albums/api";
 
-import SongItem from "../components/SongItem.vue";
+import MediaCard from "@/shared/components/MediaCard.vue";
 
 const route = useRoute();
 const data = ref<any>(null);
@@ -22,16 +22,15 @@ watch(
 </script>
 
 <template>
-  <div class="list__grid">
+  <div class="grid grid-cols-3">
     <div v-for="song in data" :key="song.public_id" class="album-card">
-      <button class="w-full" @click="playSong(song.public_id)">
-        <SongItem
-          :name="song.name"
-          :src="albumMedia.cover(song.album_details.public_id)"
-          type="Song"
-          shape="square"
-        />
-      </button>
+      <MediaCard
+        @click="playSong(song.public_id)"
+        :name="song.name"
+        :src="albumMedia.cover(song.album_details.public_id)"
+        type="Song"
+        shape="square"
+      />
     </div>
   </div>
 </template>

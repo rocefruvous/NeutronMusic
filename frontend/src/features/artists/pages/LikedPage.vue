@@ -22,17 +22,16 @@ watch(
 </script>
 
 <template>
-  <div class="list__grid">
+  <div class="grid grid-cols-3">
     <div v-for="song in data" :key="song.public_id" class="album-card">
-      <button class="w-full" @click="playSong(song.public_id)">
-        <MediaCard
-          :name="song.name"
-          :src="albumMedia.cover(song.album_details.public_id)"
-          :secondary="song.album_details.name"
-          type="Song"
-          shape="square"
-        />
-      </button>
+      <MediaCard
+        @click="playSong(song.public_id)"
+        :name="song.name"
+        :src="albumMedia.cover(song.album_details.public_id)"
+        :secondary="song.album_details.name"
+        type="Song"
+        shape="square"
+      />
     </div>
   </div>
 </template>

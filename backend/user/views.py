@@ -1,3 +1,5 @@
+import os
+
 from django.http import JsonResponse, FileResponse
 
 from django.contrib.auth import get_user_model
@@ -5,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
+from django.conf import settings
+
 from rest_framework import status
 
 from django.contrib.auth import authenticate, login
@@ -70,12 +74,15 @@ def me_view(request):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(['GET'])
 def profile_image(request, username):
     user = get_object_or_404(User, username=username)
 
-    return FileResponse(user.profile_image.open("rb"))
+    if user.profile_image and os.path.exists(user.profile_image.path):
+        return FileResponse(user.profile_image.open("rb"))
+
+    fallback_path = os.path.join(settings.BASE_DIR, "static", "images", "default-profile.webp")
+    return FileResponse(open(fallback_path, "rb"))
 
 @api_view(['GET'])
 def profile_view(request, username):
