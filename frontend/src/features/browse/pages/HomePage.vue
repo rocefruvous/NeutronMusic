@@ -48,7 +48,7 @@ onMounted(() => {
           <MediaCard
             @click="playSong(song.public_id)"
             :name="song.name"
-            secondary="Song"
+            :secondary="song.album_details.name"
             :src="albumMedia.cover(song.album_details.public_id)"
           />
         </div>
@@ -72,7 +72,7 @@ onMounted(() => {
           <MediaCard
             :to="{ name: 'album', params: { id: album.public_id } }"
             :name="album.name"
-            secondary="Album"
+            :secondary="album.artist_details.name"
             :src="albumMedia.cover(album.public_id)"
           />
         </div>
@@ -84,7 +84,7 @@ onMounted(() => {
           <MediaCard
             :to="{ name: 'album', params: { id: album.public_id } }"
             :name="album.name"
-            secondary="Album"
+            :secondary="album.artist_details.name"
             :src="albumMedia.cover(album.public_id)"
           />
         </div>
