@@ -8,9 +8,22 @@ from rest_framework import status
 
 from songs.models import Song
 
-@api_view(['GET'])
+from django.http import FileResponse
+from mimetypes import guess_type
+
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def stream_view(request, pk):
     song = get_object_or_404(Song, public_id=pk)
 
-    return FileResponse(song.audio.open("rb"))
+    file = song.audio.open("rb")
+
+    response = FileResponse(
+        file,
+        content_type=guess_type(song.audio.name)[0] or "audio/mpeg",
+    )
+
+    response["Content-Disposition"] = "inline"
+    response["Accept-Ranges"] = "bytes"
+
+    return response

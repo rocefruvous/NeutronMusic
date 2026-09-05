@@ -16,36 +16,47 @@ export function useAudioPlayer(src: () => string) {
     } catch {}
   };
 
-  const seek = (e: Event) => {
+  const seek = (time: number) => {
     const el = audio.value;
-    if (!el) return;
-    el.currentTime = +(e.target as HTMLInputElement).value;
+    if (el) {
+      el.currentTime = time;
+    }
   };
 
-  // ── sync playback state + time ──
   watchEffect((onCleanup) => {
     const el = audio.value;
     if (!el) return;
 
-    const onTime = () => (currentTime.value = el.currentTime);
-    const onMeta = () => (duration.value = el.duration);
+    const updateTime = () => {
+      currentTime.value = Number.isFinite(el.currentTime) ? el.currentTime : 0;
+    };
+
+    const updateDuration = () => {
+      if (Number.isFinite(el.duration)) {
+        duration.value = el.duration;
+      }
+    };
+
     const onPlay = () => (isPlaying.value = true);
     const onPause = () => (isPlaying.value = false);
 
-    el.addEventListener("timeupdate", onTime);
-    el.addEventListener("loadedmetadata", onMeta);
+    el.addEventListener("timeupdate", updateTime);
+    el.addEventListener("loadedmetadata", updateDuration);
+    el.addEventListener("loadeddata", updateDuration);
+    el.addEventListener("durationchange", updateDuration);
     el.addEventListener("play", onPlay);
     el.addEventListener("pause", onPause);
 
     onCleanup(() => {
-      el.removeEventListener("timeupdate", onTime);
-      el.removeEventListener("loadedmetadata", onMeta);
+      el.removeEventListener("timeupdate", updateTime);
+      el.removeEventListener("loadedmetadata", updateDuration);
+      el.removeEventListener("loadeddata", updateDuration);
+      el.removeEventListener("durationchange", updateDuration);
       el.removeEventListener("play", onPlay);
       el.removeEventListener("pause", onPause);
     });
   });
 
-  // ── react to src changes + autoplay ──
   watchEffect((onCleanup) => {
     const el = audio.value;
     const s = src();
@@ -54,6 +65,9 @@ export function useAudioPlayer(src: () => string) {
 
     currentTime.value = 0;
     duration.value = 0;
+
+    el.src = s;
+    el.load();
 
     const onCanPlay = async () => {
       el.removeEventListener("canplay", onCanPlay);

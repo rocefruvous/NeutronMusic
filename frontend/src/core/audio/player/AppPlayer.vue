@@ -21,6 +21,14 @@ const { audio, currentTime, duration, isPlaying, togglePlay, seek } = useAudioPl
   () => src.value,
 );
 
+const progress = computed(() => {
+  if (!duration.value) return 0;
+  return (currentTime.value / duration.value) * 100;
+});
+const onSeek = (e: Event) => {
+  seek(Number((e.target as HTMLInputElement).value));
+};
+
 const songData = ref<Song | null>(null);
 const albumData = ref<Album | null>(null);
 const artistData = ref<Artist | null>(null);
@@ -67,9 +75,11 @@ const fmt = (t: number) =>
           class="w-full"
           type="range"
           min="0"
+          step="0.5"
+          :style="{ '--progress': `${progress}%` }"
           :max="duration"
           :value="currentTime"
-          @input="seek"
+          @input="onSeek"
         />
       </div>
     </div>
@@ -130,21 +140,26 @@ const fmt = (t: number) =>
 .player__cover-frame {
   width: 4.5rem;
   height: 4.5rem;
-  background-image: url(/src/assets/images/default_avatar.jpg);
-  background-size: cover;
+  background: url("/src/assets/images/default_avatar.jpg") center / cover no-repeat;
   pointer-events: none;
   border-radius: 0.4rem;
+  overflow: hidden;
 }
 
 .player__cover-image {
-  border-radius: 0.4rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
 
 .player__button {
   padding: 0.5rem;
   border-radius: 999rem;
-  transition: 200ms;
   cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
 .player__play-button {
@@ -160,55 +175,87 @@ const fmt = (t: number) =>
   background-color: var(--surface);
 }
 
+/* Progress slider */
 #duration {
-  background: transparent;
-}
-#duration::-moz-range-track {
-  background-color: var(--surface);
+  --progress: 0%;
+
+  width: 100%;
   height: 2px;
-  border-radius: 100vw;
-}
-#duration::-moz-range-progress {
-  background-color: var(--foreground);
-  height: 2px;
-  border-radius: 100vw;
-}
-#duration::-moz-range-thumb {
-  background-color: transparent;
-  border: none;
-  height: 12px;
-  width: 12px;
-  transition: 200ms;
+  appearance: none;
+  -webkit-appearance: none;
+
+  background: linear-gradient(
+    to right,
+    var(--foreground) 0%,
+    var(--foreground) var(--progress),
+    var(--surface) var(--progress),
+    var(--surface) 100%
+  );
+
+  border-radius: 999px;
+  cursor: pointer;
 }
 
-#duration::-webkit-slider-runnable-track {
-  background-color: var(--surface);
+/* Firefox */
+#duration::-moz-range-track {
   height: 2px;
-  border-radius: 100vw;
+  background: transparent;
+  border-radius: 999px;
+}
+
+#duration::-moz-range-progress {
+  height: 2px;
+  background: transparent;
+}
+
+#duration::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  transition: background-color 200ms ease;
+}
+
+/* Chromium */
+#duration::-webkit-slider-runnable-track {
+  height: 2px;
+  background: transparent;
+  border-radius: 999px;
 }
 
 #duration::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  background-color: transparent;
-  border: none;
-  height: 12px;
+
   width: 12px;
-  margin-top: -5px; /* centers thumb */
-  transition: 200ms;
+  height: 12px;
+
+  margin-top: -5px;
+
+  background: var(--foreground);
+  border-radius: 50%;
+  border: none;
+
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 200ms ease;
 }
 
 .duration__frame:hover #duration::-webkit-slider-thumb {
-  background-color: var(--foreground);
+  opacity: 1;
 }
 
+.duration__frame:hover #duration::-webkit-slider-thumb,
 .duration__frame:hover #duration::-moz-range-thumb {
-  background-color: var(--foreground);
+  background: var(--foreground);
 }
 
 .current-time {
   opacity: 0;
-  transition: 200ms;
+  transition:
+    opacity 200ms ease,
+    color 200ms ease;
 }
 
 .duration__frame:hover .current-time {
