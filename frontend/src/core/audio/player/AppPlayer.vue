@@ -2,6 +2,7 @@
 import { Play, Pause, Heart } from "@lucide/vue";
 
 import { ref, watch, computed } from "vue";
+import { useFavicon } from "@vueuse/core";
 
 import { API_BASE } from "@/api/client";
 import { endpoints } from "@/api/endpoints";
@@ -11,6 +12,8 @@ import { getSong, likeSong } from "@/features/songs/api";
 import { albumMedia } from "@/features/albums/api";
 
 import { useAudioPlayer } from "./composables/useAudioPlayer";
+
+const favicon = useFavicon();
 
 const src = computed(() =>
   audioState.songId ? `${API_BASE}${endpoints.stream}${audioState.songId}` : "",
@@ -37,6 +40,8 @@ watch(
     if (!id) return;
 
     songData.value = await getSong(id);
+    document.title = songData.value.name + " | " + songData.value.album_details.artist_details.name;
+    favicon.value = albumMedia.cover(songData.value.album_details.public_id);
   },
   { immediate: true },
 );
