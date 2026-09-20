@@ -121,8 +121,7 @@ a:hover {
 }
 
 .profile__banner {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.2), var(--background)), url(/src/assets/images/banner.png);
+  background-image: url(/src/assets/images/banner.png);
   background-position: center;
   background-size: cover;
 }
@@ -131,7 +130,7 @@ a:hover {
   width: var(--avatar-lg);
   height: var(--avatar-lg);
   pointer-events: none;
-  border: 0.4rem solid var(--background);
+  border: none;
   background-image: url(/src/assets/images/default_avatar.jpg);
   background-size: cover;
 }
@@ -151,12 +150,11 @@ a:hover {
 }
 
 .avatar.square {
-  border-radius: 1rem;
+  border-radius: 0;
 }
 
 .primary-title {
-  font-size: 2em;
-  font-weight: 700;
+  @apply text-4xl font-semibold sm:text-5xl;
 }
 
 .primary-title--secondary {

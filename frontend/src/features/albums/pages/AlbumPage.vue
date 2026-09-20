@@ -36,12 +36,14 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div
-    class="profile__banner blur-xl h-96"
-    :style="{
-      backgroundImage: `linear-gradient(rgba(0,0,0, 0.2), var(--background)), url(${urls.cover})`,
-    }"
-  ></div>
+  <div class="overflow-clip">
+    <div
+      class="profile__banner blur-xl h-96 opacity-50"
+      :style="{
+        backgroundImage: `url(${urls.cover})`,
+      }"
+    ></div>
+  </div>
   <div class="flex justify-center">
     <div class="flex flex-row section w-full">
       <div class="pr-12 pl-12 w-96">

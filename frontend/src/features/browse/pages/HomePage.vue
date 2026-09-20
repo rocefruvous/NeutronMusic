@@ -36,8 +36,8 @@ onMounted(() => {
 
 <template>
   <div class="home-page__banner flex justify-center h-96">
-    <span class="section w-full">
-      <h1 class="home-page__title">what are you listening to today?</h1>
+    <span class="section w-full text-center m-12">
+      <h1 class="primary-title">What are you listening to today?</h1>
     </span>
   </div>
   <div class="flex justify-center">
@@ -94,10 +94,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.home-page__title {
-  font-size: 3.5em;
-  font-weight: 800;
-}
 .home-page__banner {
   padding: 5rem;
   background-size: cover;

@@ -48,7 +48,7 @@ function goSearch() {
 
 <style scoped>
 header {
-  color: white;
+  color: var(--foreground);
   background-color: transparent;
   height: 53px;
 }
@@ -59,7 +59,7 @@ header nav {
 
 .header__button {
   height: 2.25rem;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(250, 250, 250, 0.15);
   color: inherit;
   backdrop-filter: blur(0.5rem);
   border-radius: 100rem;

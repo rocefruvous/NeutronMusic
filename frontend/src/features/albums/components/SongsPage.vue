@@ -20,13 +20,12 @@ watch(
 
 <template>
   <div class="album-list">
-    <h1 class="primary-title">Songs</h1>
+    <h1 class="songs__title text-2xl font-semibold">Songs</h1>
     <div v-for="song in data" :key="song.public_id" class="song-card">
       <button class="w-full" @click="playSong(song.public_id)">
-        <div class="song-card__content text-left p-2 gap-1.5">
-          <p>{{ song.track_number }}</p>
+        <div class="song-card__content text-lg text-left p-2 gap-1.5 cursor-pointer">
+          <p class="song-card__number">{{ song.track_number }}</p>
           <h3 class="song-card__name">{{ song.name }}</h3>
-          <p>{{ song.duration }}</p>
         </div>
       </button>
     </div>
@@ -34,35 +33,34 @@ watch(
 </template>
 
 <style scoped>
-.album-card {
-  background: transparent;
-  width: 13rem;
-  border-radius: 1rem;
+.songs__title {
+  color: var(--foreground-muted);
+  padding: 0.4rem 1.3rem;
+
+  transition: color 200ms;
 }
 
 .song-card__content {
   display: grid;
   grid-template-columns: 1em 1fr 1fr;
-  font-size: 1.2em;
   border-radius: 1rem;
-  transition: 200ms;
   color: var(--foreground-muted);
 }
 
-.song-card__content:hover {
-  background-color: var(--surface);
-}
-
-.album-card:hover {
-  background: var(--surface);
-}
-
-.album-card__cover-art {
-  width: 12rem;
-  border-radius: 1rem;
-}
 .song-card__name {
-  font-weight: 750;
+  color: var(--foreground-secondary);
+  transition: 200ms;
+}
+
+.song-card__number {
+  transition: 200ms;
+}
+
+.song-card:hover .song-card__name {
   color: var(--foreground);
+}
+
+.song-card:hover .song-card__number {
+  color: var(--foreground-secondary);
 }
 </style>

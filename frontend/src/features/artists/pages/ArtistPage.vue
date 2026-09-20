@@ -36,7 +36,7 @@ watchEffect(() => {
   <div
     class="profile__banner h-96"
     :style="{
-      backgroundImage: `linear-gradient(rgba(0,0,0, 0.2), var(--background)), url(${urls.cover})`,
+      backgroundImage: `url(${urls.cover})`,
     }"
   ></div>
   <div class="flex justify-center">
@@ -64,7 +64,7 @@ watchEffect(() => {
           <ul class="tabs flex flex-row">
             <li>
               <RouterLink
-                class="tabs__tab"
+                class="tabs__tab text-2xl font-semibold"
                 active-class="tabs__tab--active"
                 exact-active-class="tabs__tab--active"
                 :to="{ name: 'artist-songs', params: { id: public_id } }"
@@ -74,7 +74,7 @@ watchEffect(() => {
             </li>
             <li>
               <RouterLink
-                class="tabs__tab"
+                class="tabs__tab text-2xl font-semibold"
                 active-class="tabs__tab--active"
                 exact-active-class="tabs__tab--active"
                 :to="{ name: 'artist-albums', params: { id: public_id } }"
@@ -83,7 +83,7 @@ watchEffect(() => {
               </RouterLink>
             </li>
             <RouterLink
-              class="tabs__tab"
+              class="tabs__tab text-2xl font-semibold"
               active-class="tabs__tab--active"
               exact-active-class="tabs__tab--active"
               :to="{ name: 'artist-liked', params: { id: public_id } }"
@@ -112,17 +112,25 @@ watchEffect(() => {
 .tabs__tab {
   display: flex;
   height: 100%;
-  font-size: 1.6rem;
-  font-weight: 700;
   color: var(--foreground-muted);
   padding: 0.4rem 1.3rem;
   cursor: pointer;
   text-decoration: none;
+
+  transition: color 200ms;
+}
+
+.tabs__tab:hover {
+  color: var(--foreground-secondary);
 }
 
 .tabs__tab--active {
   color: var(--foreground);
   border-bottom: 2px solid var(--foreground);
+}
+
+.tabs__tab:hover {
+  color: var(--foreground);
 }
 
 .icon-button {

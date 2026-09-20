@@ -17,12 +17,7 @@ const props = withDefaults(
       <img class="avatar absolute bottom-0" :class="props.shape" :src="src" :alt="name" />
     </div>
   </div>
-  <span class="profile__display-name">{{ name }}</span>
+  <h2 class="primary-title my-5">{{ name }}</h2>
 </template>
 
-<style scoped>
-.profile__display-name {
-  font-weight: 840;
-  font-size: 2rem;
-}
-</style>
+<style scoped></style>
