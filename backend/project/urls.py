@@ -21,12 +21,12 @@ from .views import test_api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', test_api),
-    path('api/user/', include('user.urls')),
-    path('api/songs/', include('songs.urls')),
-    path('api/stream/', include('stream.urls')),
-    path('api/catalog/', include('catalog.urls')),
-    path('api/albums/', include('albums.urls')),
-    path('api/artists/', include('artists.urls')),
-    path('api/search/', include('search.urls')),
+    path('', test_api),
+    path('user/', include('user.urls')),
+    path('songs/', include('songs.urls')),
+    path('stream/', include('stream.urls')),
+    path('catalog/', include('catalog.urls')),
+    path('albums/', include('albums.urls')),
+    path('artists/', include('artists.urls')),
+    path('search/', include('search.urls')),
 ]

@@ -16,7 +16,7 @@ import { useAudioPlayer } from "./composables/useAudioPlayer";
 const favicon = useFavicon();
 
 const src = computed(() =>
-  audioState.songId ? `${API_BASE}${endpoints.stream}${audioState.songId}` : "",
+  audioState.songId ? `${API_BASE}${endpoints.stream}${audioState.songId}/` : "",
 );
 
 const { audio, currentTime, duration, isPlaying, togglePlay, seek } = useAudioPlayer(
@@ -37,7 +37,10 @@ watch(
   () => audioState.songId,
   async (id) => {
     songData.value = null;
-    if (!id) return;
+    if (!id) {
+      console.log("NO SONG ID");
+      return;
+    }
 
     songData.value = await getSong(id);
     document.title = songData.value.name + " | " + songData.value.album_details.artist_details.name;
@@ -81,8 +84,8 @@ const fmt = (t: number) =>
       <div class="flex flex-row gap-2">
         <div class="player__cover-frame">
           <img
-            v-if="songData?.album_details.public_id"
-            :src="albumMedia.cover(songData.album_details.public_id)"
+            v-if="songData?.album_details?.public_id"
+            :src="albumMedia.cover(songData?.album_details?.public_id)"
             class="player__cover-image"
           />
         </div>

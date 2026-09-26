@@ -8,7 +8,7 @@ export const artistMedia = {
 };
 
 export async function getArtist(id: string) {
-  const data = await api.get(endpoints.artists.detail + id);
+  const data = await api.get(endpoints.artists.detail + id + "/");
   return data;
 }
 
@@ -18,6 +18,6 @@ export async function createArtist(data: FormData) {
 }
 
 export async function updateArtist(id: string, data: FormData) {
-  const res = apiClient.patch(`${endpoints.artists.detail}${id}/`, data);
+  const res = apiClient.patch(`${endpoints.artists.detail}${id}/`, data + "/");
   return res;
 }

@@ -28,11 +28,11 @@ export async function getLikedSongs(id: string) {
 }
 
 export async function likeSong(id: string) {
-  apiClient.post(endpoints.songs.list + id + "/like");
+  apiClient.post(endpoints.songs.list + id + "/like/");
 }
 
 export async function getSong(id: string) {
-  const res = await api.get(endpoints.songs.list + id);
+  const res = await api.get(endpoints.songs.list + id + "/");
   return res.data;
 }
 

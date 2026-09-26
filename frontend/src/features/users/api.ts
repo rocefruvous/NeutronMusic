@@ -22,6 +22,6 @@ export async function updateProfile(data: FormData) {
 }
 
 export async function getProfile(id: string) {
-  const data = await api.get(endpoints.user.profile + id);
+  const data = await api.get(endpoints.user.profile + id + "/");
   return data;
 }

@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api/",
+  baseURL: "/api/",
   withCredentials: true,
 
   xsrfCookieName: "csrftoken",
@@ -24,7 +24,7 @@ export const useAuthStore = defineStore("auth", {
       if (this.loaded) return this.user;
 
       try {
-        const { data } = await api.get("/user/me");
+        const { data } = await api.get("/user/me/");
 
         this.user = data;
         return data;

@@ -14,7 +14,7 @@ export async function getAlbums(id: string) {
 }
 
 export async function getAlbum(id: string) {
-  const res = await api.get(endpoints.albums.list + id);
+  const res = await api.get(endpoints.albums.list + id + "/");
   return res;
 }
 

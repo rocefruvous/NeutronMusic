@@ -13,7 +13,7 @@ const show_menu = ref(false);
   <div class="profile__container">
     <button @click="show_menu = !show_menu" class="profile__button">
       <img
-        :src="`http://localhost:8000/api/user/${user_data?.username}/profile-image/`"
+        :src="`/api/user/${user_data?.username}/profile-image/`"
         class="profile__profile-image"
       />
     </button>
