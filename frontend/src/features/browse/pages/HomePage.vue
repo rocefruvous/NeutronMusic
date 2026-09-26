@@ -43,7 +43,7 @@ onMounted(() => {
   <div class="flex justify-center">
     <div class="section">
       <h2 class="primary-title">Top Songs</h2>
-      <div class="grid grid-cols-5">
+      <div class="grid grid-cols-2 sm:grid-cols-5">
         <div v-for="song in data.topSongs" :key="song.public_id">
           <MediaCard
             @click="playSong(song.public_id)"
@@ -55,7 +55,7 @@ onMounted(() => {
       </div>
 
       <h2 class="primary-title">Featured Artists</h2>
-      <div class="grid grid-cols-5">
+      <div class="grid grid-cols-2 sm:grid-cols-5">
         <div v-for="artist in data.featuredArtists" :key="artist.public_id">
           <MediaCard
             :to="{ name: 'artist', params: { public_id: artist.public_id } }"
@@ -67,7 +67,7 @@ onMounted(() => {
       </div>
 
       <h2 class="primary-title">Albums</h2>
-      <div class="grid grid-cols-5">
+      <div class="grid grid-cols-2 sm:grid-cols-5">
         <div v-for="album in data.albums" :key="album.public_id">
           <MediaCard
             :to="{ name: 'album', params: { id: album.public_id } }"
@@ -79,7 +79,7 @@ onMounted(() => {
       </div>
 
       <h2 class="primary-title">Recent Albums</h2>
-      <div class="grid grid-cols-5">
+      <div class="grid grid-cols-2 sm:grid-cols-5">
         <div v-for="album in data.recentAlbums" :key="album.public_id">
           <MediaCard
             :to="{ name: 'album', params: { id: album.public_id } }"

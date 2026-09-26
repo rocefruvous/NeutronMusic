@@ -21,7 +21,7 @@ watch(
 </script>
 
 <template>
-  <div class="grid grid-cols-3">
+  <div class="grid grid-cols-2 sm:grid-cols-3">
     <div v-for="album in data" :key="album.public_id">
       <MediaCard
         :to="{ name: 'album', params: { id: album.public_id } }"

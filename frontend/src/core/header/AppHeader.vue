@@ -25,14 +25,17 @@ function goSearch() {
 <template>
   <header class="fixed w-full top-0 z-50 px-2.5">
     <nav class="flex justify-between h-full m-auto items-center">
-      <router-link to="/" class="header__button header__button--text"><House /></router-link>
-      <div class="header__button header__button--text mr-auto ml-2.5 gap-2">
+      <router-link to="/" class="header__button header__button--text flex"><House /></router-link>
+      <div class="header__button header__button--text flex mr-auto ml-2.5 gap-2">
         <Search :size="20" />
         <input v-model="query" @keyup.enter="goSearch" type="text" placeholder="Search" />
       </div>
 
       <span v-if="isLoggedIn == true" class="flex flex-row gap-2.5">
-        <a @click="artistCreateModal.open = true" class="header__button header__button--icon">
+        <a
+          @click="artistCreateModal.open = true"
+          class="header__button header__button--icon hidden sm:flex"
+        >
           <Plus />
         </a>
         <ProfileMenu />
@@ -63,7 +66,6 @@ header nav {
   color: inherit;
   backdrop-filter: blur(0.5rem);
   border-radius: 100rem;
-  display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;

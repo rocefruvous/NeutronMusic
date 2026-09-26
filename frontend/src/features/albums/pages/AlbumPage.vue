@@ -45,7 +45,7 @@ watchEffect(() => {
     ></div>
   </div>
   <div class="flex justify-center">
-    <div class="flex flex-row section w-full">
+    <div class="flex flex-col section w-full justify-center sm:flex-row">
       <div class="pr-12 pl-12 w-96">
         <IdentityCard :name="data?.name" :src="urls.cover" shape="square" />
         <div class="flex flex-row gap-1.5 mt-3 mb-6">

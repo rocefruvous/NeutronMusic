@@ -22,7 +22,7 @@ watch(
 </script>
 
 <template>
-  <div class="grid grid-cols-3">
+  <div class="grid grid-cols-2 sm:grid-cols-3">
     <div v-for="song in data" :key="song.public_id" class="album-card">
       <MediaCard
         @click="playSong(song.public_id)"
